@@ -2,24 +2,83 @@
 @import './vars.scss';
 @import './mixins.scss';
 
+/* | VARS */
+$w-col-1: 260px;
+$w-col-2: 1040px;
+
+@mixin grid-layout {
+  display: grid;
+  grid-template: 
+    1fr
+    / 1fr minmax(auto, $w-col-1) minmax(auto, $w-col-2);
+}
+
 /* | GLOBAL */
 body {
   font-family: sans-serif;
 }
+img {
+  max-width: 100px;
+}
 
 /* | LAYOUT*/
 .wrapper {
+  min-height: 100vh;
 
+  display: grid;
+  grid-template: 
+    minmax(100px, auto)
+    1fr
+    minmax(70px, auto)
+    / 1fr;
+  grid-template-areas: 
+    "header"
+    "main"
+    "footer";
   /* || HEADER */
   .header {
+    grid-area: header;
 
-    &__logo {}
+    display: grid;
+    grid-template: 
+      1fr
+      / 1fr minmax(auto, $w-col-1) minmax(auto, $w-col-2) 1fr;
+    column-gap: 20px; //!
 
-    &__menu {}
+    align-items: center;
 
-    &__list {}
+    padding: 15px;
 
-    &__link {}
+    
+    background-color: sienna;
+
+    &__logo {
+      grid-column: 2 / 3;
+
+      width: 60px;
+      height: 60px;
+
+
+      background-color: #fff;
+
+      border-radius: 50%;
+    }
+
+    &__menu {
+      grid-column: 3 / 4;
+    }
+    
+    &__list {
+      display: grid;
+      grid-auto-flow: column;
+      justify-items: end;
+    }
+
+    &__link {
+      color: #fff;
+      text-transform: uppercase;
+      font-size: 1.3rem;
+    }
 
     &__burger {}
   }
