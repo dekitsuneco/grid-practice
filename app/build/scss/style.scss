@@ -2,3 +2,78 @@
 @import './vars.scss';
 @import './mixins.scss';
 
+/* | GLOBAL */
+body {
+  font-family: sans-serif;
+}
+
+/* | LAYOUT*/
+.wrapper {
+
+  /* || HEADER */
+  .header {
+
+    &__logo {}
+
+    &__menu {}
+
+    &__list {}
+
+    &__link {}
+
+    &__burger {}
+  }
+
+  /* || MAIN */
+  .main {
+
+    .sidebar {
+
+      &__menu {}
+
+      &__list {}
+
+      &__link {}
+    }
+
+    .content {
+
+      &__title {}
+
+      &__gallery {}
+      .gallery {
+
+        &__title {}
+
+        &__items {}
+
+        &__item {
+          &--big {}
+        }
+      }
+
+      &__products {}
+      .products {
+
+        &__title {}
+
+        &__items {}
+
+        &__item {}
+
+        &__image {}
+
+        &__name {}
+
+        &__button {}
+      }
+    }
+  }
+
+  /* || FOOTER */
+  .footer {
+    &__copy {}
+
+    &__text {}
+  }
+}
