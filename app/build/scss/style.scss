@@ -6,20 +6,27 @@
 $w-col-1: 260px;
 $w-col-2: 1040px;
 
+$w-item: 245px;
+
+$breakpoint-1: 992px;
+
 @mixin grid-layout {
   display: grid;
   grid-template: 
     1fr
-    / 1fr minmax(auto, $w-col-1) minmax(auto, $w-col-2);
+    / 1fr minmax(auto, $w-col-1) minmax(auto, $w-col-2) 1fr;
+}
+
+@mixin grid-items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax($w-item, 1fr));
 }
 
 /* | GLOBAL */
 body {
   font-family: sans-serif;
 }
-img {
-  max-width: 100px;
-}
+
 
 /* | LAYOUT*/
 .wrapper {
@@ -39,11 +46,7 @@ img {
   .header {
     grid-area: header;
 
-    display: grid;
-    grid-template: 
-      1fr
-      / 1fr minmax(auto, $w-col-1) minmax(auto, $w-col-2) 1fr;
-    column-gap: 20px; //!
+    @include grid-layout;
 
     align-items: center;
 
@@ -85,54 +88,219 @@ img {
 
   /* || MAIN */
   .main {
+    padding: 30px 15px;
+
+
+    background-color: rgb(52,51,52);
+
+    @media (min-width: $breakpoint-1) {
+      grid-area: main;
+
+      @include grid-layout;
+    }
 
     .sidebar {
+      margin: 0px 0px 30px 0px;
+      padding: 25px 20px;
+
+      
+      background-color: rgb(121,144,108);
+      
+      @media (min-width: $breakpoint-1) {
+        grid-column: 2 /3;
+
+        margin: 0;
+      }
 
       &__menu {}
 
-      &__list {}
+      &__list {
+        display: grid;
+        grid-auto-flow: row;
+        row-gap: 25px;
+      }
 
-      &__link {}
+      &__link {
+        color: #fff;
+        font-size: 1.05rem;
+      }
     }
 
-    .content {
+    .content { 
+      @media (min-width: $breakpoint-1) {
+        grid-column: 3 / 4;
+  
+  
+        padding: 0px 0px 0px 30px;
+      }
 
-      &__title {}
+      &__title {
+        margin: 0px 0px 40px 0;
 
-      &__gallery {}
+
+        color: #fff;
+        font-size: 2rem;
+      }
+      
+      &__gallery {
+        margin: 0px 0px 35px 0px;
+      }
       .gallery {
+        &__title {
+          margin: 0px 0px 15px 0;
 
-        &__title {}
 
-        &__items {}
+          color: #fff;
+          font-size: 1.8rem;
+        }
+
+        &__items {
+          @include grid-items;
+          gap: 10px;
+        }
 
         &__item {
-          &--big {}
+          position: relative;
+          padding: 0px 0px 55% 0px;
+          
+          img {
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+          }
+
+          &--big {
+            @media (min-width: 767px) {
+              grid-column: span 2;
+              grid-row: span 2;
+            }
+          }
         }
       }
 
       &__products {}
       .products {
 
-        &__title {}
+        &__title {
+          margin: 0px 0px 15px 0;
 
-        &__items {}
 
-        &__item {}
+          color: #fff;
+          font-size: 1.8rem;
+        }
 
-        &__image {}
+        &__items {
+          @include grid-items;
+          column-gap: 30px;
+          row-gap: 50px;
+        }
 
-        &__name {}
+        &__item {
+          display: grid;
+          grid-auto-flow: row;
+          grid-template: 
+          auto
+          1fr
+          minmax(40px, auto)
+          / 1fr;
+        }
 
-        &__button {}
+        &__image {
+          position: relative;
+          margin: 0px 0px 20px 0px;
+          padding: 0px 0px 100% 0px;
+          
+          img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+          }
+        }
+
+        &__name {
+          margin: 0px 0px 20px 0px;
+
+
+          color: #fff;
+          line-height: 30px;
+          font-size: 1.25rem;
+        }
+        
+        &__button {
+          justify-self: start;
+
+          padding: 0px 20px;
+
+
+          background-color: #77608d;
+          color: #fff;
+          text-transform: uppercase;
+          letter-spacing: 2px;
+          line-height: 40px;
+        }
       }
     }
   }
 
   /* || FOOTER */
   .footer {
-    &__copy {}
+    grid-area: footer;
 
-    &__text {}
+    @include grid-layout;
+
+    align-items: center;
+
+    padding: 15px;
+
+
+    background-color: #77608d;
+    color: #fff;
+
+    @media (max-width: 550px) {
+      grid-template:
+        1fr
+        1fr
+        / 1fr;
+
+
+      text-align: center;
+    }
+
+    &__copy {
+      @media (min-width: 550px) {
+        grid-column: 2 / 3;
+      }
+
+      @media (max-width: 550px) {
+        order: 2;
+      }
+    }
+
+    &__text {
+      @media (min-width: 550px) {
+        grid-column: 3 / 4;
+        
+
+        text-align: right;
+      }
+
+      @media (max-width: 550px) {
+        order: 1;
+      }
+
+      a {
+        color: rgb(104, 11, 11);
+      }
+    }
   }
 }
